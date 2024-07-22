@@ -1,2 +1,1 @@
-# dotfiles
-My Arch Linux Dotfiles Repo!
+# My Dotfiles
