@@ -1,0 +1,66 @@
+; -> WIDGETS FOR EWW <- ;
+
+;;;; Imports
+(include "eww_variables.yuck")
+
+;;;; Metric (cpu, ram, etc bars) constructor widget
+(defwidget metric [label value onchange]
+  (box :orientation "h" :class "metric" :space-evenly false
+    (box :class "label" label)
+    (scale :min 0 :max 101 :active {onchange != ""} :value value :onchange onchange)))
+
+;;;; Background Black Holder Widget
+
+(defwidget bg []
+  (box :class "bg-box" :orientation "v" :space-evenly false))
+
+;;;; User information fetch widget
+
+(defwidget uinfo []
+  (box :class "uinfo" :orientation "v" :space-evenly false :halign "center" :valign "center"
+    (label :style "color: #5e81ac;" :text "deva@codetop" :halign "center" :valign "center" :wrap "false" :limit-width 25)
+    (label :style "color: #efefef;" :text "⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯" :halign "center" :valign "center" :wrap "false" :limit-width 25)
+    
+    ;; Tags for values
+    (box :orientation "h" :space-evenly "false" :spacing 10
+        (box :orientation "v" :class "fetch" :spacing 2
+          (label :style "font-family: 'Inconsolata Nerd Font'; color: #b48ead;" :halign "end" :text "󰣇")
+          (label :style "color: #ebcb8b;" :halign "end" :text "")
+          (label :style "color: #80a0c0;" :halign "end" :text "")
+          (label :style "color: #b48ead;" :halign "end" :text "")
+	  (button :style "color: #88c0d0;" :halign "end" :onclick "alacritty --class 'alacritty-float,alacritty-float' -e yay -Sy &" ""))
+    
+    ;; Fetch Values
+    (box :orientation "v"   :class "fetch"
+      (label :style "color: #b48ead;" :halign "start" :text ": ${distro}")
+      (label :style "color: #ebcb8b;" :halign "start" :text ": ${wm}")
+      (label :style "color: #80a0c0;" :halign "start" :text ": ${shell}")
+      (label :style "color: #b48ead;" :halign "start" :text ": ${uptime}")
+      (button :style "color: #88c0d0;" :halign "start" :onclick "alacritty --class 'alacritty-float,alacritty-float' -e yay -Syu &" ": ${packages}")))))
+
+
+;;;; System Information Widget
+
+(defwidget sys[]
+  (box :class "cpu" :orientation "v" :space-evenly true :halign "center" :valign "center"
+    (metric :label " " :value {EWW_CPU.avg} :onchange "")
+    (metric :label " " :value {EWW_RAM.used_mem_perc} :onchange "")
+    (metric :label "󰖩 " :value {(EWW_NET.wlan0.NET_UP)/100} :onchange "")
+    (metric :label " " :value {(EWW_DISK["/"].free / EWW_DISK["/"].total) * 100} :onchange "")))
+
+(defwidget network []
+
+  (box :orientation "v" :space-evenly false :class "network" :halign "center" :valign "center" :hexpand true :vexpand true  
+    (label :class "label-control" :text "${ssid}" :halign "center" :limit-width 50 :show-truncated true :hexpand true :vexpand true)
+    (box :orientation "h" :space-evenly false :class "controls" :halign "center" :valign "center" :spacing 20
+         (button :style "color: #d8dee9;" :onclick "sh ~/.config/eww/scripts/airplane_mode.sh" "󰀝 ")
+         (button :style "color: #eceff4;" :onclick "alacritty --class 'alacritty-float,alacritty-float' -e nmtui &" "󰸋 ")
+         (button :style "color: #e8e8e8;" :onclick "nm-connection-editor &" "󱛃 "))))
+
+(defwidget quickapps[]
+  (box :orientation "v" :space-evenly false :class "quickapps" :halign "center" :valign "center" :hexpand true :vexpand true
+    (label :class "label-control" :text "Quick Apps" :halign "center" :hexpand true :vexpand true)
+    (box :orientation "h" :space-evenly false :halign "center" :class "controls" :valign "center" :spacing 20
+         (button :style "color: #eceff4;" :onclick "alacritty --class 'alacritty-float,alacritty-float' -e alacritty-img " " ")
+         (button :style "color: #eceff4;" :onclick "firefox" "󰈹 ")
+         (button :style "color: #eceff4;" :onclick "blueman-manager" "󰂯"))))

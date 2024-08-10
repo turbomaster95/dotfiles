@@ -1,0 +1,46 @@
+; -> WINDOWS FOR EWW WIDGETS <- ;
+
+;;;; IMPORTS
+(include "eww_widgets.yuck")
+
+;;;; Fetch widget window
+
+(defwindow fetch
+  :wm-ignore: false
+  :monitor 0
+  :stacking "bottom"
+  :windowtype "dock"
+  :geometry (geometry :x "200px"
+                      :y "65px"
+                      :width "170px"
+                      :height "200px"
+                      :anchor "top right")
+(uinfo))
+
+;;;; System information window
+
+(defwindow sys
+  :class "cpu-win"
+  :wm-ignore false
+  :stacking "bottom"
+  :monitor 0
+  :windowtype "dock"
+  :geometry (geometry :x "20px"
+                      :y "65px"
+                      :width "170px"
+                      :height "48px"
+                      :anchor "top right")
+(sys))
+
+;;;; Network window
+
+(defwindow network
+  :wm-ignore true
+  :monitor 0
+  :windowtype "dock"
+  :geometry (geometry :x "0px"
+                      :y "0%"
+                      :width "20%"
+                      :height "10%"
+                      :anchor "center center")
+(network))

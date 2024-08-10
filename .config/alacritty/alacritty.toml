@@ -1,0 +1,24 @@
+import = ["~/.config/alacritty/catppuccin-mocha.toml"]
+
+live_config_reload = true
+
+[env]
+TERM = "xterm-256color"
+
+[window]
+decorations = "buttonless"
+dynamic_padding = false
+opacity = 0.9
+
+[font]
+size = 14.0
+
+[font.bold]
+family = "Inconsolata Nerd Font"
+style = "Bold"
+
+[font.normal]
+family = "Inconsolata Nerd Font"
+
+[shell]
+program = "zsh"
